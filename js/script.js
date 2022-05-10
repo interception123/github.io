@@ -11,55 +11,55 @@ function nav() {
 
 $(window).on('resize', () => {
     navTopChange();
-    agrosilaCaptionTopChange();
-    advantagesTextPaddingChange();
+    // agrosilaCaptionTopChange();
+    // advantagesTextPaddingChange();
 });
 
 $(window).on("orientationchange", function(event) {
     navTopChange();
-    agrosilaCaptionTopChange();
-    advantagesTextPaddingChange();
+    // agrosilaCaptionTopChange();
+    // advantagesTextPaddingChange();
 });
 
 $(document).ready(() => {
     navTopChange();
-    agrosilaCaptionTopChange();
-    advantagesTextPaddingChange();
+    // agrosilaCaptionTopChange();
+    // setTimeout(() => {
+    //     advantagesTextPaddingChange();
+    // }, 1000);
 });
 
 function navTopChange() {
-    $('.header-nav ul').css('top', ($('header').height() + 40));
+    //$('.header-nav ul').css('top', ($('header').height() + 40));
 }
 
-function agrosilaCaptionTopChange() {
-    if ($(window).width() > 600) {
-        var top1 = $('.agrosila-picture').offset().top;
-        var top2 = $('.agrosila-header h1').offset().top;
-        var top2height = $('.agrosila-header h1').outerHeight();
-        var top2width = $('.agrosila-picture').outerWidth();
-        $('.agrosila-container').css('margin-top', top2-top1+top2height+40);
-        $('.agrosila-container').css('width', top2width-180);
-    }
-    else {
-        $('.agrosila-container').css('margin-top', '');
-        $('.agrosila-container').css('width', '');
-    }
-}
+// function agrosilaCaptionTopChange() {
+//     if ($(window).width() > 600) {
+//         var top1 = $('.agrosila-picture').offset().top;
+//         var top2 = $('.agrosila-header h1').offset().top;
+//         var top2height = $('.agrosila-header h1').outerHeight();
+//         var top2width = $('.agrosila-picture').outerWidth();
+//         $('.agrosila-container').css('margin-top', top2-top1+top2height+40);
+//         $('.agrosila-container').css('width', top2width-180);
+//     }
+//     else {
+//         $('.agrosila-container').css('margin-top', '');
+//         $('.agrosila-container').css('width', '');
+//     }
+// }
 
-function advantagesTextPaddingChange() {
-    if ($(window).width() > 600) {
-        var advTextBottom = $('.advantages-text').offset().top + $('.advantages-text').outerHeight();
-        var advPictureBottom = $('.advantages-picture').offset().top + $('.advantages-picture').outerHeight();
-        let difference = (advPictureBottom - advTextBottom);
-        if (difference > 0) {
-            //$('.advantages-text').css('padding-bottom', difference);
-        }
-    }
-    else {
-        //$('.advantages-text').css('padding-bottom', '');
-    }
-    
-}
+// function advantagesTextPaddingChange() {
+//         if ($(window).width() > 600) {
+//             var advBottom = $('.advantages-picture').offset().top + $('.advantages-picture').height();
+//             var examplesTop = $('.examples').offset().top;
+//             if (examplesTop < advBottom) {
+//                 //$('.examples').css('margin-top', advBottom - examplesTop + 80);
+//             }
+//         }
+//         else {
+//             //$('.examples').css('margin-top', '');
+//         }
+// }
 
 //Эффект параллакса на скролле
 var lastScrollTop = 0;
