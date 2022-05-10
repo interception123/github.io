@@ -664,7 +664,6 @@ a.scroll-button span:nth-of-type(3) {
 }
 
 .slide_buttons {
-    position: absolute;
     text-align: center;
     user-select: none;
 }
@@ -1362,5 +1361,29 @@ footer i {
 
     .agrosila {
         max-height: none;
+    }
+
+    .main-slider h1 {
+        white-space: pre-wrap;
+    }
+
+    .slider-header {
+        margin: 0;
+    }
+
+    .main-slider {
+        margin: 10px;
+    }
+
+    .advantages {
+        margin: 20px 10px;
+    }
+
+    .advantages-icon img {
+        max-height: 120px;
+    }
+
+    .examples-header h2 {
+        font-size: 1.5em;
     }
 }
