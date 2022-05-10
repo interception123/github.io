@@ -1367,6 +1367,10 @@ footer i {
         white-space: pre-wrap;
     }
 
+    .main-slider h2 {
+        font-size: 1.5rem;
+    }
+
     .slider-header {
         margin: 0;
     }
