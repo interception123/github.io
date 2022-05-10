@@ -11,7 +11,8 @@
     --footer-color: #99a9a3;
 }
 
-html, body {
+html,
+body {
     max-width: 100%;
     overflow-x: hidden;
 }
@@ -169,15 +170,6 @@ header {
         margin-right: 1em;
     }
 
-    .header-contacts a,
-    .header-contacts img {
-        display: none;
-    }
-
-    .header-contacts a {
-        font-size: 2em;
-    }
-
     .header-nav>ul>li>a {
         text-align: center;
     }
@@ -192,12 +184,12 @@ header {
         position: absolute;
         z-index: 3;
         top: 130px;
-        right: -310px;
+        left: -350px;
         flex-direction: column;
         width: min(50%, 320px);
         max-width: 420px;
         transition: transform .5s ease;
-        display: none;
+        /*display: none;*/
     }
 
     .header-nav>ul>li {
@@ -220,7 +212,7 @@ header {
     }
 
     .header-nav.show>ul {
-        transform: translateX(-310px);
+        transform: translateX(320px);
         display: block;
     }
 }
@@ -632,6 +624,12 @@ a.scroll-button span:nth-of-type(3) {
     width: 100%;
 }
 
+.slide_group-mob {
+    height: 100%;
+    position: relative;
+    width: 100%;
+}
+
 .slide {
     display: none;
     height: 100%;
@@ -730,6 +728,23 @@ a.slide_btn {
 .previous_btn:hover,
 .next_btn:hover {
     opacity: 1;
+}
+
+@media only screen and (max-width: 1024px) {
+    .slide_group {
+        display: none;
+    }
+
+    .slide_group-mob {
+        height: 100%;
+        position: relative;
+        width: 100%;
+    }
+
+    .slide>div>img {
+        width: 180px;
+        max-width: none;
+    }
 }
 
 /* @media only screen and (max-width: 767px) {
@@ -894,7 +909,7 @@ a.slide_btn {
 
 .callback-form h2 {
     margin-bottom: 20px;
-    font-size: 3vw;
+    font-size: max(3vw, 30px);
     font-family: 'Raleway', sans-serif;
 }
 
@@ -1155,7 +1170,7 @@ footer i {
     }
 
     .agrosila-cities p {
-        font-size: 1em;
+        font-size: 1.3em;
     }
 
     .callback-form {
@@ -1345,6 +1360,11 @@ footer i {
         margin: 0 30px 70px 30px;
     }
 
+    .agrosila-cities p {
+        font-weight: bold;
+        text-align: center;
+    }
+
     .footer-content {
         flex-direction: column;
         justify-content: initial;
@@ -1352,6 +1372,10 @@ footer i {
 
     .footer-contacts {
         margin-bottom: 20px;
+    }
+
+    .header-contacts {
+        display: none;
     }
 }
 
