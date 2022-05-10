@@ -5,61 +5,8 @@ function nav() {
     const nav = $('.header-nav')[0];
     burger.addEventListener('click', () => {
         nav.classList.toggle('show');
-        navTopChange();
     });
 }
-
-$(window).on('resize', () => {
-    navTopChange();
-    // agrosilaCaptionTopChange();
-    // advantagesTextPaddingChange();
-});
-
-$(window).on("orientationchange", function(event) {
-    navTopChange();
-    // agrosilaCaptionTopChange();
-    // advantagesTextPaddingChange();
-});
-
-$(document).ready(() => {
-    navTopChange();
-    // agrosilaCaptionTopChange();
-    // setTimeout(() => {
-    //     advantagesTextPaddingChange();
-    // }, 1000);
-});
-
-function navTopChange() {
-    //$('.header-nav ul').css('top', ($('header').height() + 40));
-}
-
-// function agrosilaCaptionTopChange() {
-//     if ($(window).width() > 600) {
-//         var top1 = $('.agrosila-picture').offset().top;
-//         var top2 = $('.agrosila-header h1').offset().top;
-//         var top2height = $('.agrosila-header h1').outerHeight();
-//         var top2width = $('.agrosila-picture').outerWidth();
-//         $('.agrosila-container').css('margin-top', top2-top1+top2height+40);
-//         $('.agrosila-container').css('width', top2width-180);
-//     }
-//     else {
-//         $('.agrosila-container').css('margin-top', '');
-//         $('.agrosila-container').css('width', '');
-//     }
-// }
-
-// function advantagesTextPaddingChange() {
-//         if ($(window).width() > 600) {
-//             var advBottom = $('.advantages-picture').offset().top + $('.advantages-picture').height();
-//             var examplesTop = $('.examples').offset().top;
-//             if (examplesTop < advBottom) {
-//                 //$('.examples').css('margin-top', advBottom - examplesTop + 80);
-//             }
-//         }
-//         else {
-//             //$('.examples').css('margin-top', '');
-//         }
-// }
 
 //Эффект параллакса на скролле
 var lastScrollTop = 0;
@@ -84,95 +31,105 @@ $(function() {
 });
 
 //Работа слайдера изображений
-$('.slider').each(function() {
-    var $this = $(this);
-    var $group = $this.find('.slide_group');
-    var $slides = $this.find('.slide');
-    var bulletArray = [];
-    var currentIndex = 0;
-    var timeout;
+$(document).ready(() => {
+    createSlides();
+});
 
-    function move(newIndex) {
-        var animateLeft, slideLeft;
-
-        advance();
-
-        if ($group.is(':animated') || currentIndex === newIndex) {
-            return;
+function createSlides() {
+    $('.slider').each(function() {
+        var $this = $(this);
+        var $group = $this.find('.slide_group');
+        var $slides = $this.find('.slide_group .slide');
+        if ($(window).width() <= 1024) {
+            $group = $this.find('.slide_group-mob');
+            $slides = $this.find('.slide_group-mob .slide');
         }
-
-        bulletArray[currentIndex].removeClass('active');
-        bulletArray[newIndex].addClass('active');
-
-        if (newIndex > currentIndex) {
-            slideLeft = '100%';
-            animateLeft = '-100%';
-        } else {
-            slideLeft = '-100%';
-            animateLeft = '100%';
-        }
-
-        $slides.eq(newIndex).css({
-            display: 'flex',
-            left: slideLeft
-        });
-        $group.animate({
-            left: animateLeft
-        }, function() {
-            $slides.eq(currentIndex).css({
-                display: 'none'
-            });
+        var bulletArray = [];
+        var currentIndex = 0;
+        var timeout;
+    
+        function move(newIndex) {
+            var animateLeft, slideLeft;
+    
+            advance();
+    
+            if ($group.is(':animated') || currentIndex === newIndex) {
+                return;
+            }
+    
+            bulletArray[currentIndex].removeClass('active');
+            bulletArray[newIndex].addClass('active');
+    
+            if (newIndex > currentIndex) {
+                slideLeft = '100%';
+                animateLeft = '-100%';
+            } else {
+                slideLeft = '-100%';
+                animateLeft = '100%';
+            }
+    
             $slides.eq(newIndex).css({
-                left: 0
+                display: 'flex',
+                left: slideLeft
             });
-            $group.css({
-                left: 0
+            $group.animate({
+                left: animateLeft
+            }, function() {
+                $slides.eq(currentIndex).css({
+                    display: 'none'
+                });
+                $slides.eq(newIndex).css({
+                    left: 0
+                });
+                $group.css({
+                    left: 0
+                });
+                currentIndex = newIndex;
             });
-            currentIndex = newIndex;
-        });
-    }
-
-    function advance() {
-        clearTimeout(timeout);
-        timeout = setTimeout(function() {
+        }
+    
+        function advance() {
+            clearTimeout(timeout);
+            timeout = setTimeout(function() {
+                if (currentIndex < ($slides.length - 1)) {
+                    move(currentIndex + 1);
+                } else {
+                    move(0);
+                }
+            }, 40000000);
+        }
+    
+        $('.next_btn').on('click', function() {
             if (currentIndex < ($slides.length - 1)) {
                 move(currentIndex + 1);
             } else {
                 move(0);
             }
-        }, 40000000);
-    }
-
-    $('.next_btn').on('click', function() {
-        if (currentIndex < ($slides.length - 1)) {
-            move(currentIndex + 1);
-        } else {
-            move(0);
-        }
+        });
+    
+        $('.previous_btn').on('click', function() {
+            if (currentIndex !== 0) {
+                move(currentIndex - 1);
+            } else {
+                move(3);
+            }
+        });
+    
+        $.each($slides, function(index) {
+            var $button = $('<a class="slide_btn">&bull;</a>');
+    
+            if (index === currentIndex) {
+                $button.addClass('active');
+            }
+            $button.on('click', function() {
+                move(index);
+            }).appendTo('.slide_buttons');
+            bulletArray.push($button);
+        });
+    
+        advance();
     });
-
-    $('.previous_btn').on('click', function() {
-        if (currentIndex !== 0) {
-            move(currentIndex - 1);
-        } else {
-            move(3);
-        }
-    });
-
-    $.each($slides, function(index) {
-        var $button = $('<a class="slide_btn">&bull;</a>');
-
-        if (index === currentIndex) {
-            $button.addClass('active');
-        }
-        $button.on('click', function() {
-            move(index);
-        }).appendTo('.slide_buttons');
-        bulletArray.push($button);
-    });
-
-    advance();
-});
+}
 
 $(window).on('scroll', () => {
     if (window.pageYOffset > 200) {
