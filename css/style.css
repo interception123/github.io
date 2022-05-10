@@ -11,6 +11,11 @@
     --footer-color: #99a9a3;
 }
 
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
 ::selection {
     background: var(--selection-background);
     color: var(--selection-color);
